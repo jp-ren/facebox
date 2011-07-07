@@ -112,7 +112,9 @@
       })
 
       $(document).bind('keydown.facebox', function(e) {
-        if (e.keyCode == 27) $.facebox.close()
+        if (e.keyCode == 27 && $.facebox.settings.modal !== true) {
+					$.facebox.close()
+				}
         return true
       })
       $(document).trigger('loading.facebox')
