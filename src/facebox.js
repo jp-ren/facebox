@@ -112,8 +112,13 @@
       })
 
       $(document).bind('keydown.facebox', function(e) {
-        if (e.keyCode == 27 && $.facebox.settings.modal !== true) {
-					$.facebox.close()
+        if (e.keyCode == 27) {
+					if ($.facebox.settings.modal !== true) {
+						$.facebox.close()
+					}
+					else {
+						$('.close').click()
+					}
 				}
         return true
       })
