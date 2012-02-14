@@ -82,18 +82,17 @@
 
   $.extend($.facebox, {
     settings: {
-      opacity      : 0.2,
+      opacity      : 0.75,
       overlay      : true,
-			modal				 : true,
-      loadingImage : '/facebox/loading.gif',
-      closeImage   : '/facebox/closelabel.png',
+      modal        : true,
+      loadingImage : null,
+      closeImage   : null,
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
       faceboxHtml  : '\
     <div id="facebox" style="display:none;"> \
       <div class="popup"> \
         <div class="content"> \
         </div> \
-        <a href="#" class="close"></a> \
       </div> \
     </div>'
     },
@@ -107,19 +106,19 @@
         append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>')
 
       $('#facebox').show().css({
-        top:	getPageScroll()[1] + (getPageHeight() / 10),
-        left:	$(window).width() / 2 - ($('#facebox .popup').outerWidth() / 2)
+        top:  getPageScroll()[1] + (getPageHeight() / 10),
+        left: $(window).width() / 2 - ($('#facebox .popup').outerWidth() / 2)
       })
 
       $(document).bind('keydown.facebox', function(e) {
         if (e.keyCode == 27) {
-					if ($.facebox.settings.modal !== true) {
-						$.facebox.close()
-					}
-					else {
-						$('.close').click()
-					}
-				}
+          if ($.facebox.settings.modal !== true) {
+            $.facebox.close()
+          }
+          else {
+            $('.close').click()
+          }
+        }
         return true
       })
       $(document).trigger('loading.facebox')
@@ -204,7 +203,7 @@
     if (self.pageYOffset) {
       yScroll = self.pageYOffset;
       xScroll = self.pageXOffset;
-    } else if (document.documentElement && document.documentElement.scrollTop) {	 // Explorer 6 Strict
+    } else if (document.documentElement && document.documentElement.scrollTop) {   // Explorer 6 Strict
       yScroll = document.documentElement.scrollTop;
       xScroll = document.documentElement.scrollLeft;
     } else if (document.body) {// all other Explorers
@@ -217,7 +216,7 @@
   // Adapted from getPageSize() by quirksmode.com
   function getPageHeight() {
     var windowHeight
-    if (self.innerHeight) {	// all except Explorer
+    if (self.innerHeight) { // all except Explorer
       windowHeight = self.innerHeight;
     } else if (document.documentElement && document.documentElement.clientHeight) { // Explorer 6 Strict Mode
       windowHeight = document.documentElement.clientHeight;
@@ -284,9 +283,9 @@
     $('#facebox_overlay').hide().addClass("facebox_overlayBG")
       .css('opacity', $.facebox.settings.opacity)
       .click(function() { 
-				if ($.facebox.settings.modal !== true) 
-				$(document).trigger('close.facebox') 
-			})
+        if ($.facebox.settings.modal !== true) 
+        $(document).trigger('close.facebox') 
+      })
       .fadeIn(200)
     return false
   }
